@@ -12,7 +12,7 @@ import java.util.Vector;
  * @author Sebastian
  */
 public class Thompson {
-    private int cont=0;
+    private static int cont=0;
     public static final char NULO='\0';
     public Thompson(){}
     public Vector<Estado> vacia(){
