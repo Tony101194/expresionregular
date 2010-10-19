@@ -43,6 +43,9 @@ public class Principal extends JFrame implements ActionListener{
         
     public Principal(String titulo){
         super(titulo);
+        setSize(700,550);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	contenedor = new Container();
     	contenedor.setLayout(null);
     	getContentPane().add(contenedor);	
@@ -76,7 +79,6 @@ public class Principal extends JFrame implements ActionListener{
         comenzar.addActionListener(this);
         creditos.addActionListener(this);
         this.setJMenuBar(mbarra);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         textoExpresion.addKeyListener(new KeyAdapter(){
          public void keyTyped(KeyEvent evento){
@@ -210,8 +212,5 @@ public class Principal extends JFrame implements ActionListener{
    
     public static void main(String args[]){
         Principal ventana=new Principal(("Convertir ER a AF"));
-        ventana.setSize(700,550);
-        ventana.setVisible(true);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
