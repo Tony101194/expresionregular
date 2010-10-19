@@ -64,8 +64,8 @@ public class Principal extends JFrame implements ActionListener{
         mbarra.add(mmenu);    
         labelExpresion=new JLabel("Ingresar Expresión:");
         textoExpresion=new JTextField();
-        comenzar=new JButton("comenzar");
-        siguiente=new JButton("Siguiente");
+        comenzar=new JButton("<html>comenzar</html>");
+        siguiente=new JButton("<html>Siguiente</html>");
         siguiente.addActionListener(this);
         labelExpresion.setBounds(20, 50, 150, 30);
         textoExpresion.setBounds(170, 50, 150, 30);
@@ -149,14 +149,14 @@ public class Principal extends JFrame implements ActionListener{
         contenedor.add(siguiente);
         simbolos();
         automata=new Automata(ER, simbolos);
+        labelTitulo.setText("<html>Expresión Ingresada r: "+ER+"</html");
     }
 
     public void mostrarPasos(){
-        labelTitulo.setText("<html>Expresión Ingresada r: "+ER+"</html");
         contenedor.add(labelTitulo);
         if(index < ER.length()){
                     estados = automata.recorrerExpresion(estados, ER, index);
-                    System.out.println(estados.size());
+                    System.out.println("retrorne pgrama ppal"+estados.size());
                     if(ER.charAt(index) == '('){
                         int contadorParentesis = 1;
                         for(int i = index + 1; i < ER.length(); i++){
