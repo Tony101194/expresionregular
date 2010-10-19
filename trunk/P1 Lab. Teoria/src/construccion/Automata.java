@@ -23,6 +23,7 @@ public class Automata{
     public Automata(String ER,Vector<Character> simbolos){
         setER(ER);
         setSimbolos(simbolos);
+        construcciones=new Thompson();
     }
 
     /*private void cadenaPartida(String cadena){
@@ -61,9 +62,9 @@ public class Automata{
         if(ER.isEmpty()){
             return construcciones.vacia();
         }
-        Vector operando1 = operando;
-        Vector operando2 = null;
-        Vector resultado = operando;
+        Vector<Estado> operando1 = operando;
+        Vector<Estado> operando2 = null;
+        Vector<Estado> resultado = operando;
 
         char simboloActual;
         char simboloSiguiente;
@@ -116,13 +117,14 @@ public class Automata{
                 resultado = simboloActualParentesis(operando1, ER, indice);
             }
         }
+        System.out.println("retorne");
         return resultado;
     }
 
-    private Vector simboloActualParentesis(Vector operando, String ER, int indice){
-        Vector resultado;
-        Vector operando1 = operando;
-        Vector operando2 = null;
+    private Vector<Estado> simboloActualParentesis(Vector operando, String ER, int indice){
+        Vector<Estado> resultado;
+        Vector<Estado> operando1 = operando;
+        Vector<Estado> operando2 = null;
 
         char simboloActual;
 
@@ -135,7 +137,8 @@ public class Automata{
             else if(ER.charAt(i) == ')'){
                 controlParentesis--;
                 if(controlParentesis == 0){
-                    subER = ER.substring(indice+1, i-1);
+                    subER = ER.substring(indice+1, i);
+                    System.out.println("Substring de "+String.valueOf(indice)+": "+subER);
                     break;
                 }
             }
