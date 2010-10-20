@@ -58,7 +58,7 @@ public class Automata{
         return null;
     }
 
-  public Vector<Estado> recorrerExpresion(Vector<Estado> operando, String ER, int indice){
+ /* public Vector<Estado> recorrerExpresion(Vector<Estado> operando, String ER, int indice){
         if(ER.isEmpty()){
             return construcciones.vacia();
         }
@@ -81,7 +81,7 @@ public class Automata{
         simboloSiguiente = ER.charAt(indice);
 
         if(Character.isLetterOrDigit(simboloActual) || simboloActual == '*' ||
-                simboloActual == '+' ||
+                simboloActual == '+' || simboloActual== '|' ||
                 simboloActual == ')'){
             if(Character.isLetterOrDigit(simboloSiguiente)){
                 if(ER.length() > (indice + 1)){
@@ -89,7 +89,7 @@ public class Automata{
                     if(simboloPosSig != '*'){
                         operando2 = construcciones.constSimple(simboloSiguiente);
                         if(simboloActual == '+')
-                            resultado = construcciones.constAlterna(operando1, operando2);
+                            resultado = construcciones.constMas(operando1);
                         else
                             resultado = construcciones.constConcatena(operando1, operando2);
                         return resultado;
@@ -98,7 +98,7 @@ public class Automata{
                         operando2 = construcciones.constSimple(simboloSiguiente);
                         operando2 = construcciones.constAsterisco(operando2);
                         if(simboloActual == '+')
-                            resultado = construcciones.constAlterna(operando1, operando2);
+                            resultado = construcciones.constMas(operando1);
                         else
                             resultado = construcciones.constConcatena(operando1, operando2);
                         return resultado;
@@ -107,7 +107,7 @@ public class Automata{
                 else{
                     operando2 = construcciones.constSimple(simboloSiguiente);
                     if(simboloActual == '+')
-                        resultado = construcciones.constConcatena(operando1, operando2);
+                        resultado = construcciones.constMas(operando1);
                     else
                          resultado = construcciones.constAlterna(operando1, operando2);
                     return resultado;
@@ -193,7 +193,7 @@ public class Automata{
         if(indice > 0)
             return resultado;
         else
-            return operando2;
+            return operando2;*/
     }
 //    public Vector<String> subCadena(String expre){
 //        if(expre.isEmpty()){
