@@ -58,7 +58,7 @@ public class Automata{
         return null;
     }
 
- /* public Vector<Estado> recorrerExpresion(Vector<Estado> operando, String ER, int indice){
+  public Vector<Estado> recorrerExpresion(Vector<Estado> operando, String ER, int indice){
         if(ER.isEmpty()){
             return construcciones.vacia();
         }
@@ -193,7 +193,7 @@ public class Automata{
         if(indice > 0)
             return resultado;
         else
-            return operando2;*/
+            return operando2;
     }
 //    public Vector<String> subCadena(String expre){
 //        if(expre.isEmpty()){
