@@ -62,19 +62,71 @@ public class Automata{
         return null;
     }
 
-    public void construirAutomata(int indice){
+    public Vector<Estado> construirAutomata(int indice){
         Vector<Estado> operando1;
         Vector<Estado> operando2;
         Vector<Estado> resultado;
-        if(indice == 0 && ER.charAt(indice)=='('){
+/*        if(indice == 0 && ER.charAt(indice)=='('){
             miPila.push(ER.charAt(indice));
             indice++;
             construirAutomata(indice);
         }else{
             if(indice==0 && ER.charAt(indice)!='('){
-                
+                operando1=construcciones.constSimple(ER.charAt(indice));
+                miPila.push(operando1);
+                indice++;
+                return operando1;
             }
+        }*/
+        if(indice<ER.length()){
+        if(ER.charAt(indice)=='('){
+            miPila.push(ER.charAt(indice));
+            indice++;
+            construirAutomata(indice);
+        }else
+            if(Character.isLetterOrDigit(ER.charAt(indice))){
+                operando1=construcciones.constSimple(ER.charAt(indice));
+                miPila.push(operando1);
+                indice++;
+                return operando1;
+            }else
+                if(ER.charAt(indice)==')'){
+                    operando1=(Vector<Estado>)miPila.pop();
+                    if(Character.isLetterOrDigit((Character)miPila.peek())){
+                        operando2=(Vector<Estado>)miPila.pop();
+                        resultado=construcciones.constConcatena(operando1, operando2);
+                        return resultado;
+                    }else{
+                        if((Character)miPila.peek()=='|'){
+                            
+                        }else{
+                            indice++;
+                            miPila.pop();
+                            return construirAutomata(indice);
+                        }
+                    }
+
+                }
+                else
+                if(ER.charAt(indice)=='*'){
+                    operando1=(Vector<Estado>)miPila.pop();
+                    resultado=construcciones.constAsterisco(operando1);
+                    miPila.push(resultado);
+                    return resultado;
+                }else
+                    if(ER.charAt(indice)=='+'){
+                        operando1=(Vector<Estado>)miPila.pop();
+                        resultado=construcciones.constMas(operando1);
+                        miPila.push(resultado);
+                        return resultado;
+                    }else
+                        if(ER.charAt(indice)=='|'){
+                            miPila.push(ER.charAt(indice));
+                            indice++;
+                            return construirAutomata(indice);
+                        }
         }
+        return null;
     }
 
 
