@@ -21,6 +21,7 @@ public class Automata{
         setER("");
         setSimbolos(null);
         miPila= new Stack();
+        ultimoIndice=0;
     }
 
     public Automata(String ER,Vector<Character> simbolos){
@@ -28,6 +29,7 @@ public class Automata{
         setSimbolos(simbolos);
         construcciones=new Thompson();
         miPila=new Stack();
+        ultimoIndice=0;
     }
 
     /*private void cadenaPartida(String cadena){
@@ -92,7 +94,7 @@ public class Automata{
             }else
                 if(ER.charAt(indice)==')'){
                     operando1=(Vector<Estado>)miPila.pop();
-                    if(Character.isLetterOrDigit((Character)miPila.peek())){
+                    if(miPila.peek() instanceof Vector){
                         operando2=(Vector<Estado>)miPila.pop();
                         resultado=construcciones.constConcatena(operando1, operando2);
                         return resultado;

@@ -157,29 +157,14 @@ public class Principal extends JFrame implements ActionListener{
     public void mostrarPasos(){
         contenedor.add(labelTitulo);
         if(index < ER.length()){
-                    estados = automata.recorrerExpresion(estados, ER, index);
-                    System.out.println("retrorne pgrama ppal"+estados.size());
-                    if(ER.charAt(index) == '('){
-                        int contadorParentesis = 1;
-                        for(int i = index + 1; i < ER.length(); i++){
-                            System.out.println(ER.charAt(i));
-                            if(ER.charAt(i) == '(')
-                                contadorParentesis++;
-                            else if(ER.charAt(i) == ')'){
-                                contadorParentesis--;
-                                if(contadorParentesis == 0){
-                                    index = i - 1;
-                                }
-                            }
-                        }
-                    }
-                    index++;
-                    if(index == ER.length()){
+                    estados = automata.construirAutomata(automata.getUltimoIndice());
+                    System.out.println("Construyo"+estados.get(automata.getUltimoIndice()).get);
+                    if(automata.getUltimoIndice() == ER.length()){
                         siguiente.setEnabled(false);
                     }
                 }
                 else if(ER.isEmpty()){
-                    estados = automata.recorrerExpresion(estados, ER, index);
+                    estados = automata.construirAutomata(automata.getUltimoIndice());
                 }
     }
 
