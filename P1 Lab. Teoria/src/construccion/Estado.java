@@ -59,6 +59,11 @@ public final class Estado {
     public Transicion getTransicion(int i){
         return transiciones.get(i);
     }
+
+     public Vector <Transicion> getTransicion(){
+        return transiciones;
+    }
+
     public void agregarTransicion(Transicion transicion){
         transiciones.addElement(transicion);
     }
