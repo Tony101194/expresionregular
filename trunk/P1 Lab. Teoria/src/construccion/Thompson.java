@@ -28,6 +28,7 @@ public class Thompson {
 
     public Vector<Estado> constSimple(char simbolo){
         Vector<Estado> constru=new Vector<Estado>();
+        cont++;
         Estado inicial=new Estado("e"+String.valueOf(cont), true, false);
         cont++;
         Estado eFinal=new Estado("e"+String.valueOf(cont), false, true);
