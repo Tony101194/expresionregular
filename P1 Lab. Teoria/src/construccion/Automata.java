@@ -84,25 +84,39 @@ public class Automata{
         if(ER.charAt(indice)=='('){
             miPila.push(ER.charAt(indice));
             indice++;
-            construirAutomata(indice);
+            return construirAutomata(indice);
         }else
             if(Character.isLetterOrDigit(ER.charAt(indice))){
                 operando1=construcciones.constSimple(ER.charAt(indice));
                 miPila.push(operando1);
                 indice++;
+                ultimoIndice=indice;
                 return operando1;
             }else
                 if(ER.charAt(indice)==')'){
-                    operando1=(Vector<Estado>)miPila.pop();
+                    
                     if(miPila.peek() instanceof Vector){
-                        operando2=(Vector<Estado>)miPila.pop();
-                        resultado=construcciones.constConcatena(operando1, operando2);
-                        return resultado;
+                        operando1=(Vector<Estado>)miPila.pop();
+                        if(miPila.peek()instanceof Vector){
+                            operando2=(Vector<Estado>)miPila.pop();
+                            resultado=construcciones.constConcatena(operando2,operando1);
+                            miPila.push(resultado);
+                            return resultado;
+                        }else
+                        if((Character)miPila.peek()=='|'){
+
+                        }else{
+                            indice++;
+                            ultimoIndice=indice;
+                            miPila.pop();
+                            return construirAutomata(indice);
+                        }
                     }else{
                         if((Character)miPila.peek()=='|'){
                             
                         }else{
                             indice++;
+                            ultimoIndice=indice;
                             miPila.pop();
                             return construirAutomata(indice);
                         }
@@ -114,21 +128,27 @@ public class Automata{
                     operando1=(Vector<Estado>)miPila.pop();
                     resultado=construcciones.constAsterisco(operando1);
                     miPila.push(resultado);
+                    indice++;
+                    ultimoIndice=indice;
                     return resultado;
                 }else
                     if(ER.charAt(indice)=='+'){
                         operando1=(Vector<Estado>)miPila.pop();
                         resultado=construcciones.constMas(operando1);
                         miPila.push(resultado);
+                        indice++;
+                        ultimoIndice=indice;
                         return resultado;
                     }else
                         if(ER.charAt(indice)=='|'){
                             miPila.push(ER.charAt(indice));
                             indice++;
+                            ultimoIndice=indice;
                             return construirAutomata(indice);
                         }
         }
-        return null;
+
+        return operando1;
     }
 
 

@@ -156,9 +156,13 @@ public class Principal extends JFrame implements ActionListener{
 
     public void mostrarPasos(){
         contenedor.add(labelTitulo);
-        if(index < ER.length()){
+        if(automata.getUltimoIndice() < ER.length()){
                     estados = automata.construirAutomata(automata.getUltimoIndice());
-                    System.out.println("Construyo"+estados.get(automata.getUltimoIndice()).get);
+                    //index=automata.getUltimoIndice();
+                    for(int i =0; i< estados.size();i++){
+                        for(int j=0; j<estados.get(i).getLengthTrancisiones();j++)
+                         System.out.println("Construyo"+estados.get(i).getTransicion(j).getSimbolo());
+                    }
                     if(automata.getUltimoIndice() == ER.length()){
                         siguiente.setEnabled(false);
                     }
