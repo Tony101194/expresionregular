@@ -104,8 +104,7 @@ public class Principal extends JFrame implements ActionListener{
           areacred = new JTextArea();	
           areacred.setText(" ER/AF - Lab.Teo.Lenguajes"+"\n"+               
                              " (c)2010-20?? - Alexander Galvis Grisales" +"\n"+
-                             "                           - Sebastian Ramirez Bedoya"+"\n"+
-                             "                           - Fredy Alvarino Cordoba"+"\n"
+                             "                      - Sebastian Ramirez Bedoya"+"\n"
                             );                                          
            JOptionPane.showMessageDialog(null,areacred,"Practica ER to AF",
            JOptionPane.INFORMATION_MESSAGE);
@@ -135,7 +134,6 @@ public class Principal extends JFrame implements ActionListener{
              contenedor.repaint();
             }
     	}
-
         if(src==siguiente) {
             mostrarPasos();
         }
@@ -166,6 +164,7 @@ public class Principal extends JFrame implements ActionListener{
                     if(automata.getUltimoIndice() == ER.length()){
                         siguiente.setEnabled(false);
                     }
+                           System.out.println("\n\n");
                 }
                 else if(ER.isEmpty()){
                     estados = automata.construirAutomata(automata.getUltimoIndice());
