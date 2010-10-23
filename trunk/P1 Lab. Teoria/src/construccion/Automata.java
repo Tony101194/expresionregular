@@ -17,6 +17,8 @@ public class Automata{
     private Thompson construcciones;
     private Stack miPila;
     private int ultimoIndice;
+    public int alterna=0;
+
     public Automata(){
         setER("");
         setSimbolos(null);
@@ -30,6 +32,10 @@ public class Automata{
         construcciones=new Thompson();
         miPila=new Stack();
         ultimoIndice=0;
+    }
+
+    public Stack miPila (){
+       return miPila;
     }
 
     /*private void cadenaPartida(String cadena){
@@ -68,19 +74,9 @@ public class Automata{
         Vector<Estado> operando1;
         Vector<Estado> operando2;
         Vector<Estado> resultado;
-/*        if(indice == 0 && ER.charAt(indice)=='('){
-            miPila.push(ER.charAt(indice));
-            indice++;
-            construirAutomata(indice);
-        }else{
-            if(indice==0 && ER.charAt(indice)!='('){
-                operando1=construcciones.constSimple(ER.charAt(indice));
-                miPila.push(operando1);
-                indice++;
-                return operando1;
-            }
-        }*/
-        if(indice<ER.length()){
+        
+
+       if(indice<ER.length()){
         if(ER.charAt(indice)=='('){
             miPila.push(ER.charAt(indice));
             indice++;
@@ -111,7 +107,7 @@ public class Automata{
                       indice++;
                       ultimoIndice=indice;
                       return operando1;
-                }
+                 }
             }else
                 if(ER.charAt(indice)==')'){              
                     if(miPila.peek() instanceof Vector){
@@ -130,37 +126,55 @@ public class Automata{
                               miPila.push(resultado);
                               return resultado;
                             }
-                        }else{
-                            
+                        }else{                           
                             indice++;
                             ultimoIndice=indice;
                             miPila.pop();
                             miPila.push(operando1);
                             return (operando1);
-                        }
-                    }else{
-                        if((Character)miPila.peek()=='|'){
-                            operando1=(Vector<Estado>)miPila.pop();
-                            
-                        }else{
-                            indice++;
-                            ultimoIndice=indice;
-                            miPila.pop();
-                            return construirAutomata(indice);
-                        }
-                    }
-
+                         }
+                     }
                 }else
                     if(ER.charAt(indice)=='|'){
                         miPila.push(ER.charAt(indice));
                         indice++;
                         ultimoIndice=indice;
-                        return construirAutomata(indice);
-                    }
-        }else{
-            /*operando1=(Vector<Estado>)miPila.pop();
-            operando2=(Vector<Estado>)miPila.pop();*/
-        }
+                        resultado = construirAutomata(indice);
+                        return resultado;
+                    }else
+                        if(ER.charAt(indice)=='*'){
+                            operando1=(Vector <Estado>)miPila.pop();
+                            resultado = construcciones.constAsterisco(operando1);
+                            indice++;
+                            ultimoIndice=indice;
+                            miPila.push(resultado);
+                            return resultado;
+                        }else
+                            if(ER.charAt(indice)=='+'){
+                            operando1=(Vector <Estado>)miPila.pop();
+                            resultado = construcciones.constMas(operando1);
+                            indice++;
+                            ultimoIndice=indice;
+                            miPila.push(resultado);
+                            return resultado;
+                            }  
+             }else              
+            if(indice>=(ER.length()-1) && alterna==1){
+                  while(!miPila.empty() && miPila.size()>=3){
+                     if(miPila.peek() instanceof Vector){
+                        operando1 = (Vector<Estado>)miPila.pop();
+                        if((Character)miPila.peek()=='|'){
+                            miPila.pop();
+                           if(!miPila.empty()&& miPila.peek() instanceof Vector){
+                               operando2 =(Vector<Estado>) miPila.pop();
+                               resultado = construcciones.constAlterna(operando1, operando2);
+                               miPila.push(resultado);
+                               return resultado;
+                           }
+                        }
+                     }
+                  }
+            }
 
         return null;
     }
