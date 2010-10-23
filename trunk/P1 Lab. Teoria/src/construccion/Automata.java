@@ -180,8 +180,113 @@ public class Automata{
     }
 
 
-    public void construirAutomata(String ER, int ultimoIndice){
+    public Vector<Estado> construirAutomata(String ER, int indice){
+        Vector<Estado> operando1;
+        Vector<Estado> operando2;
+        Vector<Estado> resultado;
 
+
+       if(indice<ER.length()){
+        if(ER.charAt(indice)=='('){
+            miPila.push(ER.charAt(indice));
+            indice++;
+            return construirAutomata(ER,indice);
+        }else
+            if(Character.isLetterOrDigit(ER.charAt(indice))){
+                operando1=construcciones.constSimple(ER.charAt(indice));
+                if(indice+1<ER.length()){
+                  if(ER.charAt(indice+1)=='*'){
+                   operando1 = construcciones.constAsterisco(operando1);
+                   indice++;
+                  }
+                  if(ER.charAt(indice+1)=='+'){
+                   operando1 = construcciones.constMas(operando1);
+                   indice++;
+                  }
+                }
+
+                if((!miPila.empty()) && miPila.peek() instanceof Vector){
+                    operando2=(Vector<Estado>)miPila.pop();
+                    resultado=construcciones.constConcatena(operando2,operando1);
+                    miPila.push(resultado);
+                    indice++;
+                    ultimoIndice=indice;
+                    return resultado;
+                }else{
+                      miPila.push(operando1);
+                      indice++;
+                      ultimoIndice=indice;
+                      return operando1;
+                 }
+            }else
+                if(ER.charAt(indice)==')'){
+                    if(miPila.peek() instanceof Vector){
+                        operando1=(Vector<Estado>)miPila.pop();
+                        if(miPila.peek() instanceof Vector){
+                            operando2=(Vector<Estado>)miPila.pop();
+                            resultado=construcciones.constConcatena(operando2,operando1);
+                            miPila.push(resultado);
+                            return resultado;
+                        }else
+                        if((Character)miPila.peek()=='|'){
+                            miPila.pop();
+                            if(!miPila.empty() && miPila.peek() instanceof Vector){
+                              operando2 = (Vector<Estado>)miPila.pop();
+                              resultado = construcciones.constAlterna(operando1, operando2);
+                              miPila.push(resultado);
+                              return resultado;
+                            }
+                        }else{
+                            indice++;
+                            ultimoIndice=indice;
+                            miPila.pop();
+                            miPila.push(operando1);
+                            return (operando1);
+                         }
+                     }
+                }else
+                    if(ER.charAt(indice)=='|'){
+                        miPila.push(ER.charAt(indice));
+                        indice++;
+                        ultimoIndice=indice;
+                        resultado = construirAutomata(indice);
+                        return resultado;
+                    }else
+                        if(ER.charAt(indice)=='*'){
+                            operando1=(Vector <Estado>)miPila.pop();
+                            resultado = construcciones.constAsterisco(operando1);
+                            indice++;
+                            ultimoIndice=indice;
+                            miPila.push(resultado);
+                            return resultado;
+                        }else
+                            if(ER.charAt(indice)=='+'){
+                            operando1=(Vector <Estado>)miPila.pop();
+                            resultado = construcciones.constMas(operando1);
+                            indice++;
+                            ultimoIndice=indice;
+                            miPila.push(resultado);
+                            return resultado;
+                            }
+             }else
+            if(indice>=(ER.length()-1) && alterna==1){
+                  while(!miPila.empty() && miPila.size()>=3){
+                     if(miPila.peek() instanceof Vector){
+                        operando1 = (Vector<Estado>)miPila.pop();
+                        if((Character)miPila.peek()=='|'){
+                            miPila.pop();
+                           if(!miPila.empty()&& miPila.peek() instanceof Vector){
+                               operando2 =(Vector<Estado>) miPila.pop();
+                               resultado = construcciones.constAlterna(operando1, operando2);
+                               miPila.push(resultado);
+                               return resultado;
+                           }
+                        }
+                     }
+                  }
+            }
+
+        return null;
     }
 
     public int getUltimoIndice(){
