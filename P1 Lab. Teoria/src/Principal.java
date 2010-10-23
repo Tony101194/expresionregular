@@ -28,10 +28,7 @@ public class Principal extends JFrame implements ActionListener{
     private String ER;
     private char [] caracteres; //Debemos analizar cada caracter
     private Vector <Character> simbolos; //En este vector almacenamos los simbolos de entrada del AF
-    private int cap=0,h=0;
-    private Vector<JLabel> texto;
     private Vector<Estado> estados;
-    private int index=0;
     private Reconocedor reconozca;
     private JTextArea areacred;
     private JMenuItem creditos;
@@ -43,9 +40,11 @@ public class Principal extends JFrame implements ActionListener{
         
     public Principal(String titulo){
         super(titulo);
+        /*
         setSize(700,550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         * */
     	contenedor = new Container();
     	contenedor.setLayout(null);
     	getContentPane().add(contenedor);	
@@ -154,7 +153,7 @@ public class Principal extends JFrame implements ActionListener{
 
     public void mostrarPasos(){
         contenedor.add(labelTitulo);
-        if(automata.getUltimoIndice() < ER.length()){
+        if(automata.getUltimoIndice() < ER.length() || automata.miPila().size()>1){
                     estados = automata.construirAutomata(automata.getUltimoIndice());
                     //index=automata.getUltimoIndice();
                     for(int i =0; i< estados.size();i++){
@@ -162,9 +161,20 @@ public class Principal extends JFrame implements ActionListener{
                          System.out.println("Construyo"+estados.get(i).getTransicion(j).getSimbolo());
                     }
                     if(automata.getUltimoIndice() == ER.length()){
-                        siguiente.setEnabled(false);
-                    }
+                        if(automata.miPila().size()>1){
+                           automata.alterna =1;
+                           estados = automata.construirAutomata(automata.getUltimoIndice());
                            System.out.println("\n\n");
+                           for(int i =0; i< estados.size();i++){
+                             for(int j=0; j<estados.get(i).getLengthTrancisiones();j++)
+                               System.out.println("Construyo"+estados.get(i).getTransicion(j).getSimbolo());
+                           }
+                           if(automata.miPila().size()==1){
+                             siguiente.setEnabled(false); 
+                           }
+                        }else{siguiente.setEnabled(false);}
+                    }
+                         System.out.println("\n\n");
                 }
                 else if(ER.isEmpty()){
                     estados = automata.construirAutomata(automata.getUltimoIndice());
@@ -172,7 +182,6 @@ public class Principal extends JFrame implements ActionListener{
     }
 
  public void simbolos(){
-
    //     System.out.println(ER.length());
         for(int i=0;i<ER.length();i++){//Recorremos el vector para clasificar los caracteres.
             if(i==0 && Character.isLetterOrDigit(caracteres[i])){
@@ -200,5 +209,8 @@ public class Principal extends JFrame implements ActionListener{
    
     public static void main(String args[]){
         Principal ventana=new Principal(("Convertir ER a AF"));
+        ventana.setSize(700,550);
+        ventana.setVisible(true);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
