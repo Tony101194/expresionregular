@@ -10,6 +10,7 @@
  * @author Alexander Galvis
  *         Sebastian Ramirez
  */
+import Graficos.Tabla;
 import java.awt.*;
 import javax.swing.*;
 import  java.awt.event.*;
@@ -34,6 +35,8 @@ public class Principal extends JFrame implements ActionListener{
     private JMenuItem creditos;
     private JMenuItem msalir;
     private Automata automata;
+    private Tabla tablaAutomata;
+    private JFrame ventanita;
     private static ImageIcon fondo = new ImageIcon("fondoaf.JPG");
     private static ImageIcon out   = new ImageIcon("iconodesalir.PNG");
     private static ImageIcon cred  = new ImageIcon("concred.PNG");
@@ -73,7 +76,7 @@ public class Principal extends JFrame implements ActionListener{
         textoExpresion.setBounds(170, 50, 150, 30);
         comenzar.setBounds(320, 50, 100, 30);
         labelTitulo.setBounds(20, 30, 400, 30);
-        siguiente.setBounds(400,280,100,30);
+        siguiente.setBounds(400,380,100,30);
         msalir.addActionListener(this);
         comenzar.addActionListener(this);
         creditos.addActionListener(this);
@@ -134,7 +137,9 @@ public class Principal extends JFrame implements ActionListener{
             }
     	}
         if(src==siguiente) {
+            contenedor.removeAll();
             mostrarPasos();
+            contenedor.repaint();
         }
     }
 /*En este metodo buscamos todos los componentes del AF, tales como simbolos de entrada,
@@ -179,6 +184,10 @@ public class Principal extends JFrame implements ActionListener{
                 else if(ER.isEmpty()){
                     estados = automata.construirAutomata(automata.getUltimoIndice());
                 }
+        contenedor.add(siguiente);
+        tablaAutomata=new Tabla(estados, simbolos);
+        tablaAutomata.setBounds(80, 80, 400, 500);
+        contenedor.add(tablaAutomata);
     }
 
  public void simbolos(){
