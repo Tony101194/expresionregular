@@ -6,6 +6,7 @@
 package Graficos;
 
 import construccion.Estado;
+import construccion.Thompson;
 import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -35,13 +36,13 @@ public class Tabla extends JPanel{
         return simbols;
     }
     private String [][] getDatos(Vector<Estado> automat){
-        String [][] datos=new String[automat.size()][simbolos.size()];
-        for (int i = 0; i < datos.length; i++) {
+        String [][] datos=new String[automat.size()][simbolos.size()+2];
+        for (int i = 0; i < simbolos.size(); i++) {
             datos[i][0]=automat.get(i).getNombre();
             for (int j = 1; j < automat.size(); j++) {
-                datos[i][j]=String.valueOf(automat.get(i).getTransicion(j).getSimbolo());
+                if(automat.get(i).getTransicion(j).getSimbolo()==Thompson.NULO)
+                    datos[i][j]=String.valueOf(automat.get(i).getTransicion(j).getSimbolo());
             }
-
         }
         return datos;
     }
