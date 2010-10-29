@@ -63,6 +63,7 @@ public final class Estado {
 
     public void setAceptacion(boolean aceptacion){
         this.aceptacion=aceptacion;
+
     }
 /**
  *
