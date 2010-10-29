@@ -106,4 +106,8 @@ public class Tabla extends JPanel{
         }
         return datos;
     }
+
+    public String [][] getDatos(){
+        return data;
+    }
 }
