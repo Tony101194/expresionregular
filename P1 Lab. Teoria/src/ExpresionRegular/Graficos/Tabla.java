@@ -55,7 +55,6 @@ public class Tabla extends JPanel{
  */
     private String [] getSimbolos(Vector<Character> simbolos){
         String [] simbols=new String[simbolos.size()+3];
-        System.out.println(simbolos.size()+3);
         simbols[0]="Estados";
         for(int i=1;i<simbols.length-2;i++){
             simbols[i]=String.valueOf(simbolos.get(i-1));
@@ -71,7 +70,6 @@ public class Tabla extends JPanel{
      */
     private String [][] getDatos(Vector<Estado> automat){
         String [][] datos=new String[automat.size()][simbolos.size()+3];
-       // int k=0;
         for (int i = 0; i < automat.size(); i++) {
             for (int j = 0; j < simbolos.size()+3; j++) {
                 datos[i][j]="";
@@ -97,7 +95,6 @@ public class Tabla extends JPanel{
                         if(datos[i][simbolos.size()+1]=="")
                          datos[i][simbolos.size()+1]=automat.get(i).getTransicion(j).getEstadoFinal().getNombre();
                         else if(!(datos[i][simbolos.size()+1].substring(datos[i][simbolos.size()+1].lastIndexOf("e"),datos[i][simbolos.size()+1].length()).trim().equals(automat.get(i).getTransicion(j).getEstadoFinal().getNombre().trim()))){
-                            System.out.println(datos[i][simbolos.size()+1].substring(datos[i][simbolos.size()+1].length()-2,datos[i][simbolos.size()+1].length()));
                              datos[i][simbolos.size()+1]=datos[i][simbolos.size()+1]+","+automat.get(i).getTransicion(j).getEstadoFinal().getNombre();
                         }
                     }
