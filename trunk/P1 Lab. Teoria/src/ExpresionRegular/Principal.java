@@ -128,9 +128,7 @@ public class Principal extends JFrame implements ActionListener{
                    if (z == JOptionPane.YES_OPTION){
                      System.exit(-1);
                    }else
-                   if (z == JOptionPane.NO_OPTION){
-                     JOptionPane.showMessageDialog(this,"Still Working!!");
-                   } 
+                   if (z == JOptionPane.NO_OPTION){} 
         }
 
     if(src==nuevo){

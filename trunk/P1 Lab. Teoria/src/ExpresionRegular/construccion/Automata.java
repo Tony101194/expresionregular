@@ -167,8 +167,18 @@ public class Automata{
                         }
                      }
                   }
-            }
-
+                  while(!miPila.empty()){
+                    if(miPila.peek() instanceof Vector){
+                        operando1 = (Vector<Estado>)miPila.pop();
+                        if(!miPila.empty()&& miPila.peek() instanceof Vector){
+                           operando2 =(Vector<Estado>) miPila.pop();
+                           resultado = construcciones.constConcatena(operando1, operando2);
+                           miPila.push(resultado);
+                           return resultado;
+                        }
+                     }
+                  }
+              }
         return null;
     }
 

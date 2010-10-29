@@ -89,8 +89,9 @@ public class Tabla extends JPanel{
                     if(automat.get(i).getTransicion(j).getSimbolo()==simbolos.get(k)){
                         if(datos[i][k+1]=="")
                             datos[i][k+1]=automat.get(i).getTransicion(j).getEstadoFinal().getNombre();
-                        else
-                            datos[i][k+1]=datos[i][k+1]+","+automat.get(i).getTransicion(j).getEstadoFinal().getNombre();
+                        else if(!(datos[i][k+1].substring(datos[i][k+1].lastIndexOf("e"),datos[i][k+1].length()).trim().equals(automat.get(i).getTransicion(j).getEstadoFinal().getNombre().trim()))){
+                             datos[i][k+1]=datos[i][k+1]+","+automat.get(i).getTransicion(j).getEstadoFinal().getNombre();
+                            }
                     }else{
                     if(automat.get(i).getTransicion(j).getSimbolo()==Thompson.NULO){
                         if(datos[i][simbolos.size()+1]=="")
@@ -105,5 +106,4 @@ public class Tabla extends JPanel{
         }
         return datos;
     }
-
 }
