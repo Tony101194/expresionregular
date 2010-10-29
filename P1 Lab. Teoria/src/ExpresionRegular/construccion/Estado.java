@@ -1,15 +1,11 @@
 package ExpresionRegular.construccion;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
+import java.util.*;
 /**
- *
+ * En esta clase definimos el comportamiento que tiene la máquina
+ * 
+ * @version 1.0
  * @author Sebastian
  */
-import java.util.*;
 public final class Estado {
     /**
      * Es el nombre del <code>Estado</code> por defecto no tiene ninguno.
@@ -29,7 +25,9 @@ public final class Estado {
      */
     private Vector<Transicion> transiciones;
     /**
-     * Constructor por defector de <code>Estado</code> 
+     * Constructor por defecto de <code>Estado</code> que asigna nombre en
+     * blanco, acaptación e inicial en falso, e instancia la coleccion de
+     * <code>Trancision</code>.
      */
     public Estado(){
         setNombre("");
@@ -38,10 +36,12 @@ public final class Estado {
         this.transiciones = new Vector<Transicion>();
     }
     /**
+     * Constructor en el cual construimos un estado con un nombre definido,
+     * especificamos si es inicial y de aceptación.
      *
-     * @param nombre
-     * @param inicial
-     * @param aceptacion
+     * @param nombre nombre especifico que se le da al estado.
+     * @param inicial true si es de inicial, en caso contrario false.
+     * @param aceptacion true si es de aceptación, en caso contrario false.
      */
     public  Estado(String nombre, boolean inicial,boolean aceptacion){
         setNombre(nombre);
@@ -50,14 +50,14 @@ public final class Estado {
         this.transiciones = new Vector<Transicion>();
     }
 /**
- *
- * @param nombre
+ * En este método le asignamos un nombre al estado
+ * @param nombre nombre especifico que le queremos asignar.
  */
     public void setNombre(String nombre){
         name=nombre;
     }
     /**
-     *
+     * Método en el cual asignamos 
      * @param aceptacion
      */
 
