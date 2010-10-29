@@ -15,6 +15,7 @@ package ExpresionRegular;
 import ExpresionRegular.construccion.Estado;
 import ExpresionRegular.construccion.Automata;
 import ExpresionRegular.Graficos.Tabla;
+import ExpresionRegular.construccion.CierreLambda;
 import ExpresionRegular.construccion.Thompson;
 import java.awt.*;
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class Principal extends JFrame implements ActionListener{
     private JTextField textoExpresion;
     private JButton comenzar;
     private JButton siguiente;
+    private JButton cierrelambda;
     private JMenuBar mbarra;
     private JMenu mmenu;
     private Container contenedor;
@@ -41,6 +43,7 @@ public class Principal extends JFrame implements ActionListener{
     private JMenuItem msalir;
     private Automata automata;
     private Tabla tablaAutomata;
+    private CierreLambda clambda;
     private static ImageIcon fondo = new ImageIcon("fondoaf.JPG");
     private static ImageIcon out   = new ImageIcon("iconodesalir.PNG");
     private static ImageIcon cred  = new ImageIcon("concred.PNG");
@@ -80,12 +83,15 @@ public class Principal extends JFrame implements ActionListener{
         textoExpresion=new JTextField();
         comenzar=new JButton("<html>comenzar</html>");
         siguiente=new JButton("<html>Siguiente</html>");
+        cierrelambda=new JButton("<html>Cierre Lambda</html>");
         siguiente.addActionListener(this);
+        cierrelambda.addActionListener(this);
         labelExpresion.setBounds(20, 50, 150, 30);
         textoExpresion.setBounds(170, 50, 150, 30);
         comenzar.setBounds(320, 50, 100, 30);
         labelTitulo.setBounds(20, 30, 400, 30);
         siguiente.setBounds(400,380,100,30);
+        cierrelambda.setBounds(200,380,150,30);
         msalir.addActionListener(this);
         comenzar.addActionListener(this);
         creditos.addActionListener(this);
@@ -103,7 +109,7 @@ public class Principal extends JFrame implements ActionListener{
        //  textoExpresion.setText("");
          }
          }
-         });   
+         });
         contenedor.add(labelExpresion);
         contenedor.add(textoExpresion);
         contenedor.add(comenzar);
@@ -153,6 +159,11 @@ public class Principal extends JFrame implements ActionListener{
             mostrarPasos();
             contenedor.repaint();
         }
+
+        if(src==cierrelambda) {
+          clambda = new CierreLambda(tablaAutomata);
+          clambda.cierreLambda(estados,simbolos);
+        }
     }
 /*En este metodo buscamos todos los componentes del AF, tales como simbolos de entrada,
  * asteriscos y otros componentes asociados para la construcción de el.
@@ -197,7 +208,7 @@ public class Principal extends JFrame implements ActionListener{
                                System.out.println("Construyo"+estados.get(i).getTransicion(j).getSimbolo());
                            }
                            if(automata.miPila().size()==1){
-                             siguiente.setEnabled(false); 
+                             siguiente.setEnabled(false);
                            }
                         }else{siguiente.setEnabled(false);}
                     }
@@ -207,6 +218,9 @@ public class Principal extends JFrame implements ActionListener{
                     estados = automata.construirAutomata(automata.getUltimoIndice());
                 }
         contenedor.add(siguiente);
+        if (siguiente.isEnabled()==false){
+          contenedor.add(cierrelambda);
+        }
         tablaAutomata=new Tabla(estados, simbolos);
         tablaAutomata.setBounds(80, 80, 500, 300);
         contenedor.add(tablaAutomata);
