@@ -14,6 +14,7 @@ public class Transicion {
     private char simbolo;
      /**
      * Constructor por defecto, inicializa en <code>null</code> los atributos
+      *
      * de la <code>Transicion</code>.
      */
     public Transicion(){
