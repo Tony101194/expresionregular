@@ -38,13 +38,6 @@ public class Automata{
        return miPila;
     }
 
-    /*private void cadenaPartida(String cadena){
-        for(int i=0; i<cadena.length();i++){
-            if(cadena.charAt(i)=='('){
-
-            }
-        }
-    }*/
 
     public void setER(String ER){
         this.ER=ER;
