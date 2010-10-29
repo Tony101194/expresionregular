@@ -12,9 +12,7 @@ package ExpresionRegular.construccion;
 import java.util.*;
 public final class Estado {
     /**
-     * Es el nombre del <code>Estado</code> el cual comienza con la letra e y lo
-     * sigue un número que se va incrementando a medida que se instancie la
-     * clase.
+     * Es el nombre del <code>Estado</code> por defecto no tiene ninguno.
      */
     private String name;
     /**
@@ -31,7 +29,7 @@ public final class Estado {
      */
     private Vector<Transicion> transiciones;
     /**
-     * Constructor 
+     * Constructor por defector de <code>Estado</code> 
      */
     public Estado(){
         setNombre("");

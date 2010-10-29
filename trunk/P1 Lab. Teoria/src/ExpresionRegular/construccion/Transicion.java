@@ -20,24 +20,42 @@ public class Transicion {
         setEstadoFinal(null);
         setSimbolo('\0');
     }
-
+/**
+ *
+ * @param estadoFinal
+ * @param simbolo
+ */
     public Transicion(Estado estadoFinal,char simbolo){
         setEstadoFinal(estadoFinal);
         setSimbolo(simbolo);
     }
+    /**
+     *
+     * @param estadoFinal
+     */
     
     public void setEstadoFinal(Estado estadoFinal){
         this.estadoFinal=estadoFinal;
     }
-
+/**
+ *
+ * @param simbolo
+ */
     public void setSimbolo(char simbolo){
         this.simbolo=simbolo;
     }
+    /**
+     *
+     * @return
+     */
 
     public char getSimbolo(){
         return simbolo;
     }
-
+/**
+ *
+ * @return
+ */
 
     public Estado getEstadoFinal(){
         return estadoFinal;
