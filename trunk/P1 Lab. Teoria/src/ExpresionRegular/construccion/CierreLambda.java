@@ -18,8 +18,10 @@ public class CierreLambda {
   private Vector  simbolos;
   private Vector <Estado> cierre;
   static String incluidocierre="";
+  boolean estadosaceptacion=false;
   static String aux = "";
-  static int col=0;
+  static int col=0,vez=0,sale=0;
+  private final static String LETRAE = "e";
 
   public CierreLambda( Tabla latabla ){
     estados = latabla.getDatos();
@@ -30,14 +32,30 @@ public class CierreLambda {
       this.vectorestado= vectorestado;
       this.simbolos    = simbolos;
       int j = simbolos.size()+1;
+      String e = "";
       col = simbolos.size()+1;
       cierre = new Vector <Estado>();
+
+
+
 
       for(int x=0;x<vectorestado.size();x++){
          incluidocierre = estados [x][0];
          aux         = estados [x][j];
          incluidocierre = iteracion(incluidocierre,aux);
-         System.out.println(incluidocierre);
+         if(incluidocierre.lastIndexOf("e")!=0){
+            Estado inicial=new Estado(incluidocierre, true, false);
+            cierre.addElement(inicial);
+         }
+      }
+
+      //muestra vector de estados simplificados
+      for(int y=0;y<cierre.size();y++){
+          e = cierre.get(y).getNombre();
+          isaceptacion(cierre,simbolos,estadosaceptacion,e,sale);
+          cierre.get(y).setAceptacion(estadosaceptacion);
+          System.out.println(cierre.get(y).getNombre());
+          System.out.println(cierre.get(y).esAceptacion());
       }
   }
 
@@ -78,6 +96,36 @@ public class CierreLambda {
           }
       }
       return incluidocierre;
+  }
+
+  public boolean isaceptacion(Vector<Estado> vectorestado, Vector simbolos, boolean s,String string,int exit){
+      int cacepta = simbolos.size()+2;
+      int pos=0;String subcadena="";
+      if(exit == 0){
+       while(string.indexOf(LETRAE, pos+1)!= -1){
+         subcadena = string.substring(pos,string.indexOf(LETRAE, pos+1));
+         pos = string.indexOf(LETRAE,pos+1);
+         System.out.println(subcadena);
+         s =isaceptacion(vectorestado,simbolos,s,subcadena,exit);
+         vez=0;
+       }
+
+       if((string.indexOf(LETRAE, pos+1)== -1)&&(vez==0)){
+          subcadena = string.substring(string.lastIndexOf(LETRAE),string.length());
+          vez++;
+          s = isaceptacion(vectorestado,simbolos,s,subcadena,exit);
+       }
+
+       for ( int b=0; b<this.vectorestado.size();b++){
+         if((estados[b][0].equals(string)&& (!estados[b][cacepta].isEmpty()))){
+                s = true ;
+                exit = 1;
+                s = isaceptacion(vectorestado,simbolos,s,subcadena,exit);
+         }
+       }
+      }
+      
+      return s;
   }
 
 

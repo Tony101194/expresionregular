@@ -193,26 +193,15 @@ public class Principal extends JFrame implements ActionListener{
         contenedor.add(labelTitulo);
         if(automata.getUltimoIndice() < ER.length() || automata.miPila().size()>1){
                     estados = automata.construirAutomata(automata.getUltimoIndice());
-                    //index=automata.getUltimoIndice();
-                    for(int i =0; i< estados.size();i++){
-                        for(int j=0; j<estados.get(i).getLengthTrancisiones();j++)
-                         System.out.println("Construyo"+estados.get(i).getTransicion(j).getSimbolo());
-                    }
                     if(automata.getUltimoIndice() == ER.length()){
                         if(automata.miPila().size()>1){
                            automata.alterna =1;
                            estados = automata.construirAutomata(automata.getUltimoIndice());
-                           System.out.println("\n\n");
-                           for(int i =0; i< estados.size();i++){
-                             for(int j=0; j<estados.get(i).getLengthTrancisiones();j++)
-                               System.out.println("Construyo"+estados.get(i).getTransicion(j).getSimbolo());
-                           }
                            if(automata.miPila().size()==1){
                              siguiente.setEnabled(false);
                            }
                         }else{siguiente.setEnabled(false);}
                     }
-                         System.out.println("\n\n");
                 }
                 else if(ER.isEmpty()){
                     estados = automata.construirAutomata(automata.getUltimoIndice());
@@ -227,14 +216,12 @@ public class Principal extends JFrame implements ActionListener{
     }
 
  public void simbolos(){
-   //     System.out.println(ER.length());
         for(int i=0;i<ER.length();i++){//Recorremos el vector para clasificar los caracteres.
             if(i==0 && Character.isLetterOrDigit(caracteres[i])){
                 simbolos.addElement(caracteres[i]);
             }
             else{
                 if(Character.isLetterOrDigit(caracteres[i])){//Si el caracter introducido
-                    //System.out.println(simbolos.size());
                     if(simbolos.size()==0){
                         simbolos.addElement(caracteres[i]);
                     }else{
