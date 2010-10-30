@@ -7,8 +7,11 @@ package ExpresionRegular.construccion;
 
 /**
  *
- * @author Sebastian
+ * @version 1.0
+ * @author Sebastián Ramírez
+ * @author Alexander Galvis
  */
+
 import javax.swing.*;
 import java.util.*;
 public class Automata{
@@ -19,6 +22,7 @@ public class Automata{
     private int ultimoIndice;
     public int alterna=0;
 
+    //metodo constructor del Automata
     public Automata(){
         setER("");
         setSimbolos(null);
@@ -26,6 +30,7 @@ public class Automata{
         ultimoIndice=0;
     }
 
+    //metodo constructor con parametros
     public Automata(String ER,Vector<Character> simbolos){
         setER(ER);
         setSimbolos(simbolos);
@@ -34,6 +39,7 @@ public class Automata{
         ultimoIndice=0;
     }
 
+    //para retornar la pila que contiene las construcciones
     public Stack miPila (){
        return miPila;
     }
@@ -63,6 +69,12 @@ public class Automata{
         return null;
     }
 
+
+    /*metodo que construye el automata analizando caracter a caracter usando un
+     * entero como puntero para saber en que parte de la cadena de texto esta
+     * parado, se analizan los posibles simbolos para determinar la construccion
+     * de thompson que se debe implementar para cada caso.
+     */
     public Vector<Estado> construirAutomata(int indice){
         Vector<Estado> operando1;
         Vector<Estado> operando2;
@@ -151,7 +163,15 @@ public class Automata{
                             miPila.push(resultado);
                             return resultado;
                             }  
-             }else              
+             }else
+             /**
+              * se analiza al final de la expresion si al pila que almacena las
+              * cosntrucciones aun contiene elementos, de ser asi se tienen dos
+              * casos que hayan quedado en pila y deban ser concatenados o que
+              * hay uno o varios simbolos | , por lo q se debe hacer la
+              * construcion alternacion.
+              */
+               //caso alternacion
             if(indice>=(ER.length()-1) && alterna==1){
                   while(!miPila.empty() && miPila.size()>=3){
                      if(miPila.peek() instanceof Vector){
@@ -167,6 +187,7 @@ public class Automata{
                         }
                      }
                   }
+                  //caso concatenacion
                   while(!miPila.empty()){
                     if(miPila.peek() instanceof Vector){
                         operando1 = (Vector<Estado>)miPila.pop();
@@ -182,7 +203,10 @@ public class Automata{
         return null;
     }
 
-
+    /**
+     * sobrecarga del metodo anterior , en caso de ser necesaria por alguna
+     * circunstancia.
+     */
     public Vector<Estado> construirAutomata(String ER, int indice){
         Vector<Estado> operando1;
         Vector<Estado> operando2;
@@ -292,6 +316,7 @@ public class Automata{
         return null;
     }
 
+    //metodo que permite obtener el ultimo indice de la cadena.
     public int getUltimoIndice(){
         return this.ultimoIndice;
     }

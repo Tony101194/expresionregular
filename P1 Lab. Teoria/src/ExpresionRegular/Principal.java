@@ -1,17 +1,4 @@
 package ExpresionRegular;
-
-
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *((ka)*pi|(ka)+pa)+
- * @author Alexander Galvis
- *         Sebastian Ramirez
- */
 import ExpresionRegular.construccion.Estado;
 import ExpresionRegular.construccion.Automata;
 import ExpresionRegular.Graficos.Tabla;
@@ -22,7 +9,15 @@ import javax.swing.*;
 import  java.awt.event.*;
 import java.util.Vector;
 import ExpresionRegular.reconocimiento.Reconocedor;
-
+/**
+ *  En esta deplegamos los componenetes gráficos y provee la interfaz al usuario,
+ * además de interactuar con las otras clases para formar el automata finito.
+ * 
+ * @version 1.0
+ * @author Sebastián Ramírez
+ * @author Alexander Galvis
+ */
+ 
 public class Principal extends JFrame implements ActionListener{
     private JLabel labelExpresion,imagen,labelTitulo;
     private JTextField textoExpresion;
@@ -35,35 +30,33 @@ public class Principal extends JFrame implements ActionListener{
     private String ER;
     private char [] caracteres; //Debemos analizar cada caracter
     private Vector <Character> simbolos; //En este vector almacenamos los simbolos de entrada del AF
-    private Vector<Estado> estados;
+    private Vector<Estado> estados;//objeto que contiene los estados del AF que se crean a partir de la ER
     private Reconocedor reconozca;
-    private JTextArea areacred;
+    private JTextArea areacred;//Donde se muestran los creditos
+    private JFrame otra;
     private JMenuItem nuevo;
     private JMenuItem creditos;
     private JMenuItem msalir;
     private Automata automata;
-    private Tabla tablaAutomata;
+    private Tabla tablaAutomata,tablaCierre;
     private CierreLambda clambda;
     private static ImageIcon fondo = new ImageIcon("fondoaf.JPG");
     private static ImageIcon out   = new ImageIcon("iconodesalir.PNG");
-    private static ImageIcon cred  = new ImageIcon("concred.PNG");
-        
+    private static ImageIcon cred  = new ImageIcon("iconcred.PNG");
+    private static ImageIcon mas = new ImageIcon("iconofile.PNG");
+
     public Principal(String titulo){
+        //definicion de objetos a utilizar en la interfaz
         super(titulo);
-        /*
-        setSize(700,550);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         * */
         setResizable(false);
     	contenedor = new Container();
     	contenedor.setLayout(null);
-    	getContentPane().add(contenedor);	
+    	getContentPane().add(contenedor);
         imagen = new JLabel();
         labelTitulo=new JLabel();
     	mbarra = new JMenuBar();
     	mmenu = new JMenu("Opciones");
-        nuevo=new JMenuItem("Nueva Máquina");
+        nuevo=new JMenuItem("Nueva Máquina",mas);
         nuevo.setMnemonic('N');
         nuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,InputEvent.CTRL_MASK));
         creditos  = new JMenuItem("Creditos",cred);
@@ -75,10 +68,11 @@ public class Principal extends JFrame implements ActionListener{
         imagen.setBounds(0,0,fondo.getIconWidth(),fondo.getIconHeight());
         imagen.setIcon(fondo);
         mmenu.add(nuevo);
+        mmenu.addSeparator();
         mmenu.add(creditos);
         mmenu.addSeparator();
     	mmenu.add(msalir);
-        mbarra.add(mmenu);    
+        mbarra.add(mmenu);
         labelExpresion=new JLabel("Ingresar Expresión:");
         textoExpresion=new JTextField();
         comenzar=new JButton("<html>comenzar</html>");
@@ -97,7 +91,8 @@ public class Principal extends JFrame implements ActionListener{
         creditos.addActionListener(this);
         nuevo.addActionListener(this);
         this.setJMenuBar(mbarra);
-        
+       /*validacion del campo de texto de forma que solo acepte los caracteres de una ER ,
+        * no acepta el caracter r por que es una palabra reservada pero acepta R*/
         textoExpresion.addKeyListener(new KeyAdapter(){
          public void keyTyped(KeyEvent evento){
          char c = evento.getKeyChar();
@@ -106,63 +101,76 @@ public class Principal extends JFrame implements ActionListener{
              (c == KeyEvent.VK_SPACE)/*||(c == KeyEvent.VK_PASTE)*/||(c=='r')){
          getToolkit().beep();
          evento.consume();
-       //  textoExpresion.setText("");
          }
          }
          });
+         // se agregan los objetos al contenedor
         contenedor.add(labelExpresion);
         contenedor.add(textoExpresion);
         contenedor.add(comenzar);
         contenedor.add(imagen);
     }
+    
+    //para las acciones de los botones
     public void actionPerformed(ActionEvent e){
     Object src = e.getSource();
-    //accion de creditos
         if(src==creditos){
-          areacred = new JTextArea();	
-          areacred.setText(" ER/AF - Lab.Teo.Lenguajes"+"\n"+               
+          areacred = new JTextArea();
+          areacred.setText(" ER/AF - Lab.Teo.Lenguajes"+"\n"+
                              " (c)2010-20?? - Alexander Galvis Grisales" +"\n"+
                              "                      - Sebastian Ramirez Bedoya"+"\n"
-                            );                                          
+                            );
            JOptionPane.showMessageDialog(null,areacred,"Practica ER to AF",
            JOptionPane.INFORMATION_MESSAGE);
         }
-    //accion de salir
         if (src == msalir) {
             int z = JOptionPane.showConfirmDialog(null,"Desea salir del programa?",
                     "Desea Salir?",JOptionPane.YES_NO_OPTION);
                    if (z == JOptionPane.YES_OPTION){
                      System.exit(-1);
                    }else
-                   if (z == JOptionPane.NO_OPTION){} 
+                   if (z == JOptionPane.NO_OPTION){}
         }
 
     if(src==nuevo){
         inicio();
+        //carga la pantalla inicial de la aplicacion
     }
     //accion del boton comenzar
     	if (src == comenzar) {
+        //llama a la clase reconocedor para que analice la cadena ingresada
         reconozca=new Reconocedor();
         reconozca.reconocercadena(textoExpresion.getText());
           if(reconozca.continuar==false){
            JOptionPane.showMessageDialog(null,"¡Expresion Regular Incorrecta!,por favor revise");
           }else{
+            //si la cadena es valida empieza con la construccion del AF
             contenedor.removeAll();
              expresionValida();
-          //   subCadenas=automata.toVectorString(ER);
              mostrarPasos();
              contenedor.repaint();
             }
     	}
+    
         if(src==siguiente) {
+            //para una ejecucion paso a paso de la construccion
             contenedor.removeAll();
             mostrarPasos();
             contenedor.repaint();
         }
 
         if(src==cierrelambda) {
+            /*este muestra en una nueva ventana el resultado de hacer el cierre lambda del AF
+             * previamente creado toma como base la primer tabla construida
+             * */ 
           clambda = new CierreLambda(tablaAutomata);
           clambda.cierreLambda(estados,simbolos);
+          otra = new JFrame("Cierre Lambda");
+          otra.setSize(520,300);
+          otra.setVisible(true);
+          tablaCierre=new Tabla(clambda.getCierre(), simbolos);
+          tablaCierre.setBounds(80, 80, 500, 300);
+          otra.getContentPane().add(tablaCierre);
         }
     }
 /*En este metodo buscamos todos los componentes del AF, tales como simbolos de entrada,
@@ -191,6 +199,7 @@ public class Principal extends JFrame implements ActionListener{
 
     public void mostrarPasos(){
         contenedor.add(labelTitulo);
+        //analiza la pila para construir el AF paso a paso
         if(automata.getUltimoIndice() < ER.length() || automata.miPila().size()>1){
                     estados = automata.construirAutomata(automata.getUltimoIndice());
                     if(automata.getUltimoIndice() == ER.length()){
@@ -207,6 +216,7 @@ public class Principal extends JFrame implements ActionListener{
                     estados = automata.construirAutomata(automata.getUltimoIndice());
                 }
         contenedor.add(siguiente);
+        //cuando siguiente se deshabilita el AF esta construido a totalidad y se habilita cierrelambda
         if (siguiente.isEnabled()==false){
           contenedor.add(cierrelambda);
         }
@@ -215,6 +225,7 @@ public class Principal extends JFrame implements ActionListener{
         contenedor.add(tablaAutomata);
     }
 
+    //metodo que almacena los simbolos de entrada en un vector
  public void simbolos(){
         for(int i=0;i<ER.length();i++){//Recorremos el vector para clasificar los caracteres.
             if(i==0 && Character.isLetterOrDigit(caracteres[i])){
@@ -236,9 +247,9 @@ public class Principal extends JFrame implements ActionListener{
                 }
              }
         }
-
     }
-   
+
+ //metodo constructor de la aplicacion , crea la ventana
     public static void main(String args[]){
         Principal ventana=new Principal("Convertir ER a AF");
         ventana.setSize(700,550);

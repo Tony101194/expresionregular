@@ -66,7 +66,10 @@ public class Tabla extends JPanel{
     /**
      *
      * @param automat
-     * @return
+     * @return String datos
+     * Este metodo escribe en la tabla los valores que obtiene del vector de estados
+     * que se le mande, accesando a las transiciones estado inicial, estado siguiente
+     * y verificando si es de aceptacion o rechazo
      */
     private String [][] getDatos(Vector<Estado> automat){
         String [][] datos=new String[automat.size()][simbolos.size()+3];
@@ -104,6 +107,10 @@ public class Tabla extends JPanel{
         return datos;
     }
 
+
+    /* metodo usado para retornar la tabla creada en el metodo anterior , esta
+     * sera usada en la clase CierreLambda
+     */
     public String [][] getDatos(){
         return data;
     }
