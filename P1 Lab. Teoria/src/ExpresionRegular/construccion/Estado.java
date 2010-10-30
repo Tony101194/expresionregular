@@ -57,7 +57,8 @@ public final class Estado {
         name=nombre;
     }
     /**
-     * Método en el cual asignamos 
+     * Método en el cual asignamos a un <code>Estado</code> especifico si es de acpetacion o
+     * no.
      * @param aceptacion
      */
 
@@ -66,15 +67,16 @@ public final class Estado {
 
     }
 /**
- *
+ * Método en el cual podemos asignarle a un <code>Estado</code> si es inicial
+ * o no.
  * @param inicial
  */
     public void setInicial(boolean inicial){
         this.inicial=inicial;
     }
     /**
-     *
-     * @return
+     * Método en el cual obtenemos el nombre del <code>Estado</code>.
+     * @return nombre del estado
      */
 
     public String getNombre(){
@@ -82,7 +84,7 @@ public final class Estado {
     }
     /**
      *
-     * @return
+     * @return true si es de aceptación o false si no.
      */
 
     public boolean esAceptacion(){
@@ -90,30 +92,31 @@ public final class Estado {
     }
     /**
      *
-     * @return
+     * @return true si es inicial y false si no.
      */
 
     public boolean esInicial(){
         return inicial;
     }
 /**
- *
+ * Método en el cual enviamos las trancisiones que puede tener un
+ * <code>Estado</code>.
  * @param trancisiones
  */
     public void setTransicion(Vector<Transicion> trancisiones){
         this.transiciones=trancisiones;
     }
 /**
- *
- * @param i
- * @return
+ * Método que obtiene una trancision en especifico
+ * @param i indice que indica que trancisión se desea obtener.
+ * @return trancisión que indica a que estado va y con que simbolo.
  */
     public Transicion getTransicion(int i){
         return transiciones.get(i);
     }
     /**
      *
-     * @return
+     * @return 
      */
 
      public Vector <Transicion> getTransicion(){
