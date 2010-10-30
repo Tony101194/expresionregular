@@ -49,6 +49,8 @@ public class CierreLambda {
       col = simbolos.size()+1;
       cierre = new Vector <Estado>();
       posiciones = new Vector();
+
+      posiciones = new Vector();
       //determina y construye los nuevos estados
       for(int x=0;x<vectorestado.size();x++){
          incluidocierre = estados [x][0];
@@ -59,11 +61,22 @@ public class CierreLambda {
             cierre.addElement(inicial);
          }
       }
+      //muestra vector de estados simplificados
       //determina sobre los nuevos estados cuales son de aceptacion
       for(int y=0;y<cierre.size();y++){
           e = cierre.get(y).getNombre();
           estadosaceptacion = isaceptacion(cierre,simbolos,estadosaceptacion,e);
           cierre.get(y).setAceptacion(estadosaceptacion);
+      }
+      vez =0;
+      for(int y=0;y<cierre.size();y++){
+       f = cierre.get(y).getNombre();
+       transiciones(vectorestado,simbolos,f,y);
+       for(int g=0;g<cierre.get(y).getLengthTrancisiones();g++){
+           System.out.println("Estado incial"+cierre.get(y).getNombre());
+           System.out.println("Estado final"+cierre.get(y).getTransicion(g).getEstadoFinal().getNombre());
+           System.out.println("Simbolo"+cierre.get(y).getTransicion(g).getSimbolo()+"\n");
+       }
       }
       vez =0;
       //determina las transiciones de los estados simplificados
@@ -173,6 +186,7 @@ public class CierreLambda {
       return s;
   }
 
+
   /**
    * Este metodo reliza algo similar a los anteriores, analiza todas las trancisiones
    * posibles para los nuevos estados creados, a diferencia de los anteriores
@@ -226,5 +240,4 @@ public class CierreLambda {
   public Vector <Estado> getCierre(){
       return cierre;
   }
-
 }
