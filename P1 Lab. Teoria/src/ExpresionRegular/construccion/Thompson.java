@@ -1,20 +1,32 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ExpresionRegular.construccion;
 
 import java.util.Vector;
 
 /**
+ * En esta clase se definen las contrucciones especificas para cada uno de
+ * los operadores.
  *
- * @author Sebastian
+ * @author Sebastian & Galvis
  */
 public class Thompson {
+    /**
+     * Esta variable de clase se incrementa cada vez que se crea un estado
+     * nuevo y lo que complementa el nombremiento de los estados.
+     */
     private static int cont=0;
+    /**
+     * Esta constante representa el simbolo de las transiciones lambda.
+     */
     public static final char NULO='\0';
+    /**
+     * Constructor por defecto de la clase.
+     */
     public Thompson(){}
+
+    /**
+     * Esta funcion realiza la construcción cuando la cadena ingresada es vacia.
+     * @return un <code>Vector<Estado></code> el cual no contiene trancisiones.
+     */
     public Vector<Estado> vacia(){
         cont++;
         Vector<Estado> constru=new Vector<Estado>();
@@ -26,6 +38,13 @@ public class Thompson {
         return constru;
     }
 
+    /**
+     * Esta funcion rezaliza la construcción simple, es decir, cuando existe un
+     * carácter o digito en la expresión.
+     * @param simbolo Carácter con el cual se cambia de un estado a otro.
+     * @return un <code>Vector<Estado></code> el cual contiene la construcción
+     * del simbolo ingresado.
+     */
     public Vector<Estado> constSimple(char simbolo){
         Vector<Estado> constru=new Vector<Estado>();
         cont++;
@@ -38,7 +57,16 @@ public class Thompson {
         constru.addElement(eFinal);
         return constru;
     }
-
+/**
+ * Esta función contruye la concatenacion entre dos construcciones anteriormente
+ * dadas.
+ * @param constru1 <code>Vector<Estado></code> que contiene la construcción que
+ * segun las reglas del Automata para cocatenarlo la otra parte de la expresión.
+ * @param constru2 <code>Vector<Estado></code> que contiene la construcción que
+ * complementa la primera construcción.
+ * @return Un <code>Vector<Estado></code> que contiene la concatenación entre
+ * constru1 y contru2.
+ */
     public Vector<Estado> constConcatena(Vector<Estado> constru1, Vector<Estado> constru2){
         Vector <Estado> constru;
         Estado finalConstru1= constru1.lastElement();
@@ -57,7 +85,17 @@ public class Thompson {
 
         return constru;
     }
-
+    /**
+     * Esta función contruye la la alternación entre dos construcciones
+     * predefinidas, esta operacion da a la ocurrencia de que se de este caso o
+     * el otro.
+     * @param constru1  <code>Vector<Estado></code> que contiene la construcción que
+     * segun las reglas del Automata para cocatenarlo la otra parte de la expresión.
+     * @param constru2  <code>Vector<Estado></code> que contiene la construcción que
+     * complementa la primera construcción.
+     * @return Un <code>Vector<Estado></code> que contiene la alternación entre
+     * constru1 y contru2.
+     */
     public Vector<Estado> constAlterna(Vector<Estado> constru1, Vector<Estado> constru2){
         Vector<Estado> constru=new Vector<Estado>();
         cont++;
@@ -98,6 +136,14 @@ public class Thompson {
         constru.addElement(nuevoFinal);
         return constru;
     }
+
+    /**
+     * Esta función construye la clausura de una construcción predefinida.
+     * @param constru <code>Vector<Estado></code> que contiene una construcción
+     * predefinida.
+     * @return Un <code>Vector<Estado></code> que contiene la clausura entre
+     * constru
+     */
     public Vector<Estado> constAsterisco(Vector<Estado> constru){
         cont++;
         Estado nuevoInicio=new Estado("e"+String.valueOf(cont), true, false);
@@ -120,7 +166,14 @@ public class Thompson {
 
         return constru;
     }
-
+    /**
+     * Esta función construye la opreacion mas (+) de una construcción predefinida.
+     * Esta operación permite tener por lo menos una ocurrencia de una expresión.
+     * @param constru <code>Vector<Estado></code> que contiene una construcción
+     * predefinida.
+     * @return Un <code>Vector<Estado></code> que contiene la operación (+) entre
+     * constru
+     */
     public Vector<Estado> constMas(Vector<Estado> constru){
         cont++;
         Estado nuevoInicio=new Estado("e"+String.valueOf(cont), true, false);
@@ -142,6 +195,10 @@ public class Thompson {
 
         return constru;
     }
+    /**
+     * Esta funcion reinicia el valor del contador con el cual se le
+     * complementa el nombre del estado.
+     */
     public static void resetCont(){
         cont=0;
     }
