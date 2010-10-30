@@ -115,25 +115,27 @@ public final class Estado {
         return transiciones.get(i);
     }
     /**
-     *
-     * @return 
+     * Método usado para obtener las trancisiones de un estado.
+     * @return las transiciones correspondientes al estado.
      */
 
      public Vector <Transicion> getTransicion(){
         return transiciones;
     }
      /**
-      *
-      * @param transicion
+      * Método en el cual asignamos una transición a un estado especifico.
+      * @param transicion trancisión con la cual se especifica con anterioridad
+      * hacia que estado queremos llegar y con que simbolo.
       */
 
     public void agregarTransicion(Transicion transicion){
         transiciones.addElement(transicion);
     }
     /**
-     *
-     * @param estadoFinal
-     * @param simbolo
+     * Esta sobrecarga permite asignar una trancisión teniendo un estado y el
+     * simbolo con el que pasa del estado al otro.
+     * @param estadoFinal <code>Estado</code> al cual se desea llegar.
+     * @param simbolo Carácter con el que cambia de un estado a otro.
      */
 
     public void agregarTransicion(Estado estadoFinal, char simbolo){
@@ -141,13 +143,13 @@ public final class Estado {
     }
     /**
      *
-     * @return
+     * @return la cantidad de trancsiones que tuiene este estado.
      */
     public int getLengthTrancisiones(){
         return transiciones.size();
     }
     /**
-     *
+     * Elimina el total de transiciones que tiene el estado.
      */
     public void removerTransiciones(){
         transiciones.removeAll(transiciones);
