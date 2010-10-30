@@ -6,13 +6,13 @@ package ExpresionRegular.reconocimiento;
  * entrada de datos del usuario, validando si la ER es correcta o no
  * La gramatica utilizada es la siguiente:
  *<ul>
- *<li>1.<1>-> <2><3> </li>
+ *<li>1.  <1>-> <2><3> </li>
  *<li>2.  <2>-> <4><5></li>
  *<li>3.  <3>-> |<2><3></li>
  *<li>4.  <3>-> NULL</li>
- *<li> 5.  <3>-> <2><3></li>
+ *<li> 5. <3>-> <2><3></li>
  *<li>6.  <4> -> (<1>)</li>
- *<li> 7.  <4>-> I (simbolo cualquiera)</li>
+ *<li> 7. <4>-> I (simbolo cualquiera)</li>
  *<li>8.  <5>-> NULL</li>
  *<li>9.  <5>-> *<3></li>
  *<li>10. <5>-> +<3></li>
@@ -20,6 +20,7 @@ package ExpresionRegular.reconocimiento;
  * @version 1.0
  * @author Alexander Galvis
  *         Sebastian Ramirez
+ *
  */
 public class Reconocedor {
       private final String terminales = "[0-9a-zA-ZÃ±Ã‘]";
@@ -27,6 +28,15 @@ public class Reconocedor {
       public  boolean confirma,continuar;
       private int recorrer;
 
+      /**
+       * Se crea un subprograma tipo void por cada N (No terminal).Se maneja una
+       * variable global con la cual se procesa la hilera a reconocer , cada
+       * subprogramadeja un simbolo leido
+       * Tema correspondiente a : Reconocimiento Descendente Recursivo
+       * Notas de Roberto Florez
+       * 
+       * @param c
+       */
         public void reconocercadena(String c){
 		confirma = true;
 		er = c;
@@ -116,8 +126,8 @@ public class Reconocedor {
 		else{confirma = false;}
 	}
 	
-        /**para leer la cadena ingresada en el campo de texto caracter a caracter
-         *
+        /**
+         * para leer la cadena ingresada en el campo de texto caracter a caracter
          * @param cadena esta es la ingresada por el usuario
          * @return <code>Sring</code> 
          */
