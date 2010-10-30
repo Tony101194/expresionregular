@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ExpresionRegular.construccion;
 
 /**
- *
+ * Esta clase permite parametrizar las transiciones que llevan de un estado a
+ * otro.
  * @author Sebastian & Galvis
  */
 public class Transicion {
@@ -22,40 +18,41 @@ public class Transicion {
         setSimbolo('\0');
     }
 /**
- *
- * @param estadoFinal
- * @param simbolo
+ * Define una trancisión con un estado final y un simbolo con el cual traciende.
+ * @param estadoFinal <code>Estado</code> al cual se desea que trascienda.
+ * @param simbolo Carácter o digito con el que se va a ese <code>Estado</code>.
  */
     public Transicion(Estado estadoFinal,char simbolo){
         setEstadoFinal(estadoFinal);
         setSimbolo(simbolo);
     }
     /**
-     *
-     * @param estadoFinal
+     * Esta función asigna el estado final.
+     * @param estadoFinal <code>Estado</code> al que se trasciende.
      */
     
     public void setEstadoFinal(Estado estadoFinal){
         this.estadoFinal=estadoFinal;
     }
 /**
- *
- * @param simbolo
+ * Esta función asigna el simbolo con el cual traciende a un <code>Estado</code>.
+ * @param simbolo Carácter o digito el cual se define la transición a el
+ * otro <code>Estado</code>.
  */
     public void setSimbolo(char simbolo){
         this.simbolo=simbolo;
     }
     /**
      *
-     * @return
+     * @return el simbolo de la transición definida.
      */
 
     public char getSimbolo(){
         return simbolo;
     }
 /**
- *
- * @return
+ * 
+ * @return El <code>Estado</code> al cual trasciende.
  */
 
     public Estado getEstadoFinal(){
