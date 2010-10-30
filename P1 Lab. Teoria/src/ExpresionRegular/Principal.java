@@ -12,12 +12,12 @@ import ExpresionRegular.reconocimiento.Reconocedor;
 /**
  *  En esta deplegamos los componenetes gráficos y provee la interfaz al usuario,
  * además de interactuar con las otras clases para formar el automata finito.
- * 
+ *
  * @version 1.0
  * @author Sebastián Ramírez
  * @author Alexander Galvis
  */
- 
+
 public class Principal extends JFrame implements ActionListener{
     private JLabel labelExpresion,imagen,labelTitulo;
     private JTextField textoExpresion;
@@ -110,7 +110,7 @@ public class Principal extends JFrame implements ActionListener{
         contenedor.add(comenzar);
         contenedor.add(imagen);
     }
-    
+
     //para las acciones de los botones
     public void actionPerformed(ActionEvent e){
     Object src = e.getSource();
@@ -151,7 +151,7 @@ public class Principal extends JFrame implements ActionListener{
              contenedor.repaint();
             }
     	}
-    
+
         if(src==siguiente) {
             //para una ejecucion paso a paso de la construccion
             contenedor.removeAll();
@@ -162,7 +162,7 @@ public class Principal extends JFrame implements ActionListener{
         if(src==cierrelambda) {
             /*este muestra en una nueva ventana el resultado de hacer el cierre lambda del AF
              * previamente creado toma como base la primer tabla construida
-             * */ 
+             * */
           clambda = new CierreLambda(tablaAutomata);
           clambda.cierreLambda(estados,simbolos);
           otra = new JFrame("Cierre Lambda");
